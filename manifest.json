@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Text Chunker for ChatGPT",
+  "version": "1.0",
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Text Chunker for ChatGPT",
+    "default_icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    }
+  },
+  "description": "A Chrome extension to separate long texts into 12,000 character chunks for ChatGPT-4.",
+  "permissions": ["clipboardWrite"],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+
+  }
+}

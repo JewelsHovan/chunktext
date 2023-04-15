@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 400px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff; /* Change the text color to white for better contrast */
+  margin-bottom: 15px;
+  background-color: #1a237e; /* Deep blue color */
+  padding: 5px;
+}
+
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+button {
+  background-color: #2196f3; /* Vibrant blue color */
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background-color: #1976d2; /* Slightly darker blue for hover state */
+}
+
+
+#output h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.copy-chunk {
+  background-color: #4caf50; /* Bright green color */
+}
+
+.copy-chunk:hover {
+  background-color: #388e3c; /* Slightly darker green for hover state */
+}
+
