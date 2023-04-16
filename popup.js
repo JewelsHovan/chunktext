@@ -1,3 +1,4 @@
+
 document.getElementById("chunk-text").addEventListener("click", () => {
   const inputText = document.getElementById("input-text").value;
   const chunkSize = 12000;
@@ -68,13 +69,16 @@ document.getElementById("paraphrase-text").addEventListener("click", async () =>
 
 async function paraphraseText(text) {
   const apiKey = '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';
-  const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+  const apiUrl = 'https://api.openai.com/v1/engines/chatgpt-3.5-turbo/completions';
 
   try {
     const response = await axios.post(
       apiUrl,
       {
-        prompt: `Please paraphrase the following text: "${text}"`,
+        messages: [
+          { role: "system", content: "You are a helpful assistant that paraphrases text." },
+          { role: "user", content: `Please paraphrase the following text: "${text}"` },
+        ],
         max_tokens: 2000,
         n: 1,
         stop: null,
@@ -94,6 +98,7 @@ async function paraphraseText(text) {
     return text; // Return the original text in case of an error
   }
 }
+
 
 function getChunksFromOutput() {
   const chunkTextareas = document.querySelectorAll("#output textarea");
