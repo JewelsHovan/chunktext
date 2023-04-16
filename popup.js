@@ -17,15 +17,13 @@ document.getElementById("chunk-text").addEventListener("click", () => {
   const output = document.getElementById("output");
   output.innerHTML = "";
 
-  chunks.forEach(async (chunk, index) => {
-    const paraphrasedChunk = await paraphraseText(chunk);
-
+  for (const [index, chunk] of chunks.entries()) {
     const chunkElement = document.createElement("div");
     chunkElement.innerHTML = `
-    <h2>Chunk ${index + 1}</h2>
-    <textarea readonly rows="10" cols="50">${paraphrasedChunk}</textarea>
-    <button class="copy-chunk">Copy Chunk</button>
-  `;
+      <h2>Chunk ${index + 1}</h2>
+      <textarea readonly rows="10" cols="50">${chunk}</textarea>
+      <button class="copy-chunk">Copy Chunk</button>
+    `;
     output.appendChild(chunkElement);
 
     chunkElement.querySelector(".copy-chunk").addEventListener("click", () => {
@@ -33,7 +31,8 @@ document.getElementById("chunk-text").addEventListener("click", () => {
       textarea.select();
       document.execCommand("copy");
     });
-  });
+  }
+
 
   // Create download link for the text file
   const downloadButton = document.createElement("button");
@@ -51,6 +50,20 @@ document.getElementById("chunk-text").addEventListener("click", () => {
     link.click();
     URL.revokeObjectURL(url);
   });
+});
+
+// Paraphrase a text chunk
+document.getElementById("paraphrase-text").addEventListener("click", async () => {
+  const chunks = getChunksFromOutput();
+  const paraphrasedChunks = [];
+
+  for (const chunk of chunks) {
+    const paraphrasedChunk = await paraphraseText(chunk);
+    paraphrasedChunks.push(paraphrasedChunk);
+  }
+
+  // Update the output with paraphrased chunks
+  displayChunks(paraphrasedChunks);
 });
 
 async function paraphraseText(text) {
@@ -80,4 +93,31 @@ async function paraphraseText(text) {
     console.error('Error while paraphrasing:', error);
     return text; // Return the original text in case of an error
   }
+}
+
+function getChunksFromOutput() {
+  const chunkTextareas = document.querySelectorAll("#output textarea");
+  const chunks = Array.from(chunkTextareas).map(textarea => textarea.value);
+  return chunks;
+}
+
+function displayChunks(chunks) {
+  const output = document.getElementById("output");
+  output.innerHTML = "";
+
+  chunks.forEach((chunk, index) => {
+    const chunkElement = document.createElement("div");
+    chunkElement.innerHTML = `
+      <h2>Chunk ${index + 1}</h2>
+      <textarea readonly rows="10" cols="50">${chunk}</textarea>
+      <button class="copy-chunk">Copy Chunk</button>
+    `;
+    output.appendChild(chunkElement);
+
+    chunkElement.querySelector(".copy-chunk").addEventListener("click", () => {
+      const textarea = chunkElement.querySelector("textarea");
+      textarea.select();
+      document.execCommand("copy");
+    });
+  });
 }
